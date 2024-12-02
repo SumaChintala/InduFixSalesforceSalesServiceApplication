@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Stage_Sequence</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(
+    AND( ISCHANGED(StageName),
+        NOT(ISPICKVAL(StageName, &quot;Engineering Review&quot;)),
+       ISPICKVAL(PRIORVALUE(StageName), &quot;Prospecting&quot;)
+    ),
+    AND(ISCHANGED(StageName),
+        ISPICKVAL(StageName, &quot;Closed Won&quot;),
+        NOT(
+            ISPICKVAL(PRIORVALUE(StageName), &quot;Manufacturing Preparation&quot;)
+        )
+    )
+)</errorConditionFormula>
+    <errorMessage>You can&apos;t skip the mandatory stages  &apos;Engineering Review&apos; and &apos;Manufacturing Preparation&apos;</errorMessage>
+</ValidationRule>

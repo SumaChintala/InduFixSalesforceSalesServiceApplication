@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Equipment - Medium Priroity/Urgency</description>
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Equipment - Medium Priroity/Urgency</name>
+    <queueMembers>
+        <users>
+            <user>service.manager@indufix.com</user>
+            <user>epic.09696d52749c@orgfarm.com</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

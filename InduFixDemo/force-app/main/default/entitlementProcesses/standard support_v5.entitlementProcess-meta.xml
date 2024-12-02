@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>Default</businessHours>
+    <description>Standard Support Entitlement Process: For customers with Standard Support.</description>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>true</isVersionDefault>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFormula>AND(
+TEXT(Status) = &quot;New&quot;,
+OR(
+TEXT(Account.SLA__c) = &quot;Bronze&quot;,
+TEXT(Account.SLA__c) = &quot;Silver&quot;,
+ISBLANK(TEXT(Account.SLA__c))
+),
+OR(
+Asset.Support_Type__c = &quot;Standard&quot;,
+ISBLANK(Asset.Support_Type__c)
+),
+NOT(
+OR(
+TEXT(Account.SLA__c) = &quot;Gold&quot;,
+TEXT(Account.SLA__c) = &quot;Platinum&quot;,
+Asset.Support_Type__c = &quot;Premium&quot;,
+Asset.Support_Type__c = &quot;Premium Plus&quot;
+)
+)
+)</milestoneCriteriaFormula>
+        <milestoneName>First Response SLA - Standard</milestoneName>
+        <minutesToComplete>1440</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>Standard_Response_Violation</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Reassign_to_Standard_Escalation_Queue</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Status_Field_Update_to_Escalated</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Update_isEscalated_Field</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFormula>AND(
+OR(TEXT(Status) = &quot;New&quot;,TEXT(Status) = &quot;Working&quot;,TEXT(Status) = &quot;Escalated&quot;),
+OR(
+TEXT(Account.SLA__c) = &quot;Bronze&quot;,
+TEXT(Account.SLA__c) = &quot;Silver&quot;,
+ISBLANK(TEXT(Account.SLA__c))
+),
+OR(
+Asset.Support_Type__c = &quot;Standard&quot;,
+ISBLANK(Asset.Support_Type__c)
+),
+NOT(
+OR(
+TEXT(Account.SLA__c) = &quot;Gold&quot;,
+TEXT(Account.SLA__c) = &quot;Platinum&quot;,
+Asset.Support_Type__c = &quot;Premium&quot;,
+Asset.Support_Type__c = &quot;Premium Plus&quot;
+)
+)
+)</milestoneCriteriaFormula>
+        <milestoneName>Resolution SLA - Standard</milestoneName>
+        <minutesToComplete>4320</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFormula>AND(
+TEXT(Status) = &quot;Escalated&quot;,
+OR(
+TEXT(Account.SLA__c) = &quot;Bronze&quot;,
+TEXT(Account.SLA__c) = &quot;Silver&quot;,
+ISBLANK(TEXT(Account.SLA__c))
+),
+OR(
+Asset.Support_Type__c = &quot;Standard&quot;,
+ISBLANK(Asset.Support_Type__c)
+),
+NOT(
+OR(
+TEXT(Account.SLA__c) = &quot;Gold&quot;,
+TEXT(Account.SLA__c) = &quot;Platinum&quot;,
+Asset.Support_Type__c = &quot;Premium&quot;,
+Asset.Support_Type__c = &quot;Premium Plus&quot;
+)
+)
+)</milestoneCriteriaFormula>
+        <milestoneName>Escalation SLA - Standard</milestoneName>
+        <minutesToComplete>240</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFormula>AND(
+TEXT(Status) = &quot;New&quot;,
+OR(
+TEXT(Account.SLA__c) = &quot;Gold&quot;,
+Asset.Support_Type__c = &quot;Premium&quot;
+),
+NOT(
+OR(
+TEXT(Account.SLA__c) = &quot;Silver&quot;,
+TEXT(Account.SLA__c) = &quot;Bronze&quot;,
+TEXT(Account.SLA__c) = &quot;Platinum&quot;,
+Asset.Support_Type__c = &quot;Standard&quot;,
+Asset.Support_Type__c = &quot;Premium Plus&quot;
+)
+)
+)</milestoneCriteriaFormula>
+        <milestoneName>First Response SLA - Premium</milestoneName>
+        <minutesToComplete>240</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>Premium_Support_Case_Escalation_Email</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Reassign_To_Premium_Escalated_Queue</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Status_Field_Update_to_Escalated</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Update_isEscalated_Field</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFormula>AND(
+OR(TEXT(Status) = &quot;New&quot;,TEXT(Status) = &quot;Working&quot;,TEXT(Status) = &quot;Escalated&quot;),
+OR(
+TEXT(Account.SLA__c) = &quot;Gold&quot;,
+Asset.Support_Type__c = &quot;Premium&quot;
+),
+NOT(
+OR(
+TEXT(Account.SLA__c) = &quot;Silver&quot;,
+TEXT(Account.SLA__c) = &quot;Bronze&quot;,
+TEXT(Account.SLA__c) = &quot;Platinum&quot;,
+Asset.Support_Type__c = &quot;Standard&quot;,
+Asset.Support_Type__c = &quot;Premium Plus&quot;
+)
+)
+)</milestoneCriteriaFormula>
+        <milestoneName>Resolution SLA - Premium</milestoneName>
+        <minutesToComplete>1440</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFormula>AND(
+TEXT(Status) = &quot;Escalated&quot;,
+OR(
+TEXT(Account.SLA__c) = &quot;Gold&quot;,
+Asset.Support_Type__c = &quot;Premium&quot;
+),
+NOT(
+OR(
+TEXT(Account.SLA__c) = &quot;Silver&quot;,
+TEXT(Account.SLA__c) = &quot;Bronze&quot;,
+TEXT(Account.SLA__c) = &quot;Platinum&quot;,
+Asset.Support_Type__c = &quot;Standard&quot;,
+Asset.Support_Type__c = &quot;Premium Plus&quot;
+)
+)
+)</milestoneCriteriaFormula>
+        <milestoneName>Escalation SLA - Premium</milestoneName>
+        <minutesToComplete>120</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <criteriaBooleanFilter>1 AND (2 OR 3)</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>New</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Account.SLA__c</field>
+            <operation>equals</operation>
+            <value>Platinum</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Asset.Support_Type__c</field>
+            <operation>equals</operation>
+            <value>Premium Plus</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>First Response SLA - Premium+</milestoneName>
+        <minutesToComplete>60</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>Premium_Plus_Support_Escalation_Email</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>ReAssign_to_Premium_Plus_EscalationQueue</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Status_Field_Update_to_Escalated</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>Update_isEscalated_Field</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <criteriaBooleanFilter>1 AND (2 OR 3)</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Working, Escalated</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Account.SLA__c</field>
+            <operation>equals</operation>
+            <value>Platinum</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Asset.Support_Type__c</field>
+            <operation>equals</operation>
+            <value>Premium Plus</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Resolution SLA - Premium+</milestoneName>
+        <minutesToComplete>240</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <criteriaBooleanFilter>1 AND (2 OR 3)</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Escalated</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Account.SLA__c</field>
+            <operation>equals</operation>
+            <value>Platinum</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Asset.Support_Type__c</field>
+            <operation>equals</operation>
+            <value>Premium Plus</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Escalation SLA - Premium+</milestoneName>
+        <minutesToComplete>60</minutesToComplete>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <name>Standard Support</name>
+    <versionMaster>552dM00000AL885</versionMaster>
+    <versionNumber>5</versionNumber>
+</EntitlementProcess>

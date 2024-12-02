@@ -1,0 +1,6 @@
+The following Premium Plus Support case has been escalated to the Escalated Queue. 
+
+Company: {!Account.Name} 
+Product: {!Case.Product__c} 
+Case #: {!Case.CaseNumber} 
+Case Subject: {!Case.Subject}

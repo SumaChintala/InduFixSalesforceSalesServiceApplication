@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quote_Acceptance_Check</fullName>
+    <active>true</active>
+    <description>Quote Acceptance Check</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(StageName, &quot;Closed Won&quot;),
+    NOT(ISPICKVAL(SyncedQuote.Status, &quot;Accepted&quot;))
+)</errorConditionFormula>
+    <errorMessage>Please negotiate the Quote with customer and upload the signed Quote acceptance document to proceed.</errorMessage>
+</ValidationRule>
